@@ -14,7 +14,6 @@ window.onload = function () {
         function InitTasks() {
             taskCount = GetTaskCount();
             taskList = GetList();
-
             // Check if any tasks are stored in browser local storage (if - else)
             if (taskCount && taskList) {
                 // Iterating over tasks using for loop
@@ -29,15 +28,13 @@ window.onload = function () {
                 taskList = [];
                 StoreList(taskCount);
             }
-
-            window.history.back = undefined;
         }
     )();
 }
 
 // Create DOM elements for new task
 function CreateTask(task) {
-    // Get task element based on task type
+    // Get task element based on task type (using types property of task - dot notation)
     var node = GetTaskType(task.type);
 
     if (node) {
@@ -92,12 +89,10 @@ function AddTask() {
             }
             // Store task object in an task array
             taskList.push(task);
-
+            console.log(task.id)
             // Create required DOM nodes for the new task (using task object as parameter)
             CreateTask(task);
-
-            // Store new task in browser local storage (using id property of task - dot notation)
-            StoreList(task.id)
+            StoreList(taskCount)
         }
         ShowError(false);
     }
@@ -117,11 +112,10 @@ function RemoveTask(id) {
     // Iterate over array to remove element from array(using while loop)
     while (index--) {
         if (taskList[index].id && taskList[index].id == id) {
-            taskList = taskList.splice(0, index - 1).concat(taskList.splice(index + 1));
+            taskList.splice(index, 1);
             break;
         }
     }
-
     // Update task array to browser local storage
     StoreList(taskCount);
 }
@@ -131,7 +125,7 @@ function UpdateTask(id, type) {
     taskList.find(t => t.id == id).type = type;
 
     // Update task array to browser local storage
-    StoreList(taskList);
+    StoreList(taskCount);
 }
 
 function GetTaskType(value) {
@@ -152,7 +146,7 @@ function GetTaskType(value) {
 
 // Generate and return id for new tasks
 function GetTaskID() {
-    return taskCount++;
+    return ++taskCount;
 }
 
 // Prompt invalid task alert
@@ -196,7 +190,7 @@ function drop(ev) {
 function StoreList(count) {
     // Store array of tasks and count in browser local storage
     localStorage.setItem("tasks", JSON.stringify(taskList));
-    localStorage.setItem("taskCount", count)
+    localStorage.setItem("taskCount", count);
 }
 
 function GetList() {

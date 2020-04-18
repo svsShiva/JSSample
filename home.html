@@ -44,14 +44,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg bg-dark mx-1" id="do" id="doing" ondrop="drop(event)" ondragover="allowDrop(event)">
-                To-do
+            <div class="col-lg bg-info mx-1" id="do" id="doing" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="d-flex justify-content-center bg-danger m-2">
+                    <h4>To-do</h4>
+                </div>
             </div>
             <div class="col-lg bg-secondary mx-1" id="doing" ondrop="drop(event)" ondragover="allowDrop(event)">
-                In-progress
+                <div class="d-flex justify-content-center bg-warning m-2">
+                    <h4>In-Progress</h4>
+                </div>
             </div>
-            <div class="col-lg bg-success mx-1" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
-                Done
+            <div class="col-lg bg-dark mx-1" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="d-flex justify-content-center bg-success m-2">
+                    <h4>Done</h4>
+                </div>
             </div>
         </div>
     </div>
@@ -66,4 +72,5 @@
 
 
 <script src="js/dom.js"></script>
+
 </html>

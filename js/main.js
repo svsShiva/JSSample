@@ -1,4 +1,4 @@
-// var base_url = "https://my-json-server.typicode.com/svsShiva/api";
+var base_url = "https://my-json-server.typicode.com/svsShiva/api/users";
 
 // Get references of email and password ( using a built‐in method for the document object)
 var emailInput = document.getElementById("inputEmail");
@@ -14,8 +14,29 @@ var isEmailValid = false;
 var isPasswordValid = false;
 
 // Navigates to home page on successful login (Form validations - email, password)
-function Login() { 
-    location.href = "home.html"
+function Login() {
+    let email = emailInput.value;
+    let password = passwordInput.value;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText) {
+                let users = JSON.parse(this.responseText);
+                if (users.find(u => u.email == email && u.password == password)) {
+                    location.href = "home.html"
+                }
+                else {
+                    document.getElementById("loginError").innerHTML = "Incorrect email or password";
+                }
+            }
+            else {
+                document.getElementById("loginError").innerHTML = "Incorrect email or password";
+            }
+        }
+
+    };
+    xhttp.open("GET", base_url, true);
+    xhttp.send();
 }
 
 // Enables login button if both email and password are valid
