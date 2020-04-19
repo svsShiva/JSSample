@@ -5,14 +5,17 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/custom.css">
+	
 	<title>JS Assignment!</title>
 	<script>
 		window.onload = function () {
+			// Get all the tasks from local storage
 			var tasksList = GetList();
 			var doTasks = [];
 			var doingTasks = [];
 			var doneTasks = [];
+
+			// Get taks by task type
 			if (tasksList.length > 0) {
 				tasksList.forEach(element => {
 					if (element.type == "do") {
@@ -26,16 +29,14 @@
 					}
 				})
 			}
+
+			// Create chart object
 			var chart = new CanvasJS.Chart("chartContainer", {
 				theme: "light2",
 				animationEnabled: true,
 				title: {
 					text: "Your tasks"
 				},
-				// subtitles: [{
-				// 	text: "United Kingdom, 2016",
-				// 	fontSize: 16
-				// }],
 				data: [{
 					type: "pie",
 					indexLabelFontSize: 24,
@@ -50,8 +51,10 @@
 					]
 				}]
 			});
+			// render chart to UI
 			chart.render();
-
+			
+			// Plot data points
 			function explodePie(e) {
 				for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
 					if (i !== e.dataPointIndex)
@@ -63,6 +66,8 @@
 				// Get the count of tasks stored in browser local storage
 				return JSON.parse(localStorage.getItem("tasks"));
 			}
+
+			// Return percentage of tasks based on task type
 			function GetTaskPercentage(type) {
 				if (type == "do") {
 					return doTasks.length > 0 ?

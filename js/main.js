@@ -15,29 +15,35 @@ var isPasswordValid = false;
 
 // Navigates to home page on successful login (Form validations - email, password)
 function Login() {
-    // let email = emailInput.value;
-    // let password = passwordInput.value;
-    // var xhttp = new XMLHttpRequest();
-    // xhttp.onreadystatechange = function () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         if (this.responseText) {
-    //             let users = JSON.parse(this.responseText);
-    //             if (users.find(u => u.email == email && u.password == password)) {
-    //                 location.href = "home.html"
-    //             }
-    //             else {
-    //                 document.getElementById("loginError").innerHTML = "Incorrect email or password";
-    //             }
-    //         }
-    //         else {
-    //             document.getElementById("loginError").innerHTML = "Incorrect email or password";
-    //         }
-    //     }
+    let email = emailInput.value;
+    let password = passwordInput.value;
+    var xhttp = new XMLHttpRequest();
+    
+    // Get call to get the list of the users
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
 
-    // };
-    // xhttp.open("GET", base_url, true);
-    // xhttp.send();
-    location.href = "home.html"
+            // check if response if not emppty
+            if (this.responseText) {
+                // verify email and password
+                let users = JSON.parse(this.responseText);
+                if (users.find(u => u.email == email && u.password == password)) {
+                    location.href = "home.html"
+                }
+                // Promt ivalid credentials error
+                else {
+                    document.getElementById("loginError").innerHTML = "Incorrect email or password";
+                }
+            }
+            else {
+                document.getElementById("loginError").innerHTML = "Incorrect email or password";
+            }
+        }
+
+    };
+    xhttp.open("GET", base_url, true);
+    xhttp.send();
+    // location.href = "home.html"
 }
 
 // Enables login button if both email and password are valid

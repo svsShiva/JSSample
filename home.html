@@ -14,13 +14,16 @@
 </head>
 
 <body>
+    <!-- navigation bar -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
         <a class="navbar-brand text-white" href="#">TasksGrid</a>
+        <!-- Toggle button for smaller screens -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Navbar items -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -33,12 +36,15 @@
             <button class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='index.html'">Logout</button>
         </div>
     </nav>
+
     <div class="container my-5 py-5">
+        <!-- Taks form -->
         <div class="m-4">
             <div class="form-group">
                 <label>Task</label>
                 <input type="text" class="form-control" id="inputTask">
             </div>
+            <!-- Invalid task prompt -->
             <div class="error" style="display: none;">
                 <div class="alert alert-danger">
                     Task is Required
@@ -56,23 +62,30 @@
             <button class="btn btn-primary" onclick="AddTask()">Add</button>
         </div>
 
+        <!-- Delete task container -->
         <div class="d-flex justify-content-center my-4">
             <div class="d-flex justify-content-center bg-danger p-3" ondrop="drop(event)" ondragover="allowDrop(event)"
                 id="delete">
                 <i class="fas fa-trash"></i>
             </div>
         </div>
+
         <div class="row m-6">
+            <!-- List all to-o tasks -->
             <div class="col-lg bg-info mx-1" id="do" id="doing" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <div class="d-flex justify-content-center bg-danger m-2">
                     <h4>To-do</h4>
                 </div>
             </div>
+
+            <!-- List all in progress tasks -->
             <div class="col-lg bg-secondary mx-1" id="doing" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <div class="d-flex justify-content-center bg-warning m-2">
                     <h4>In-Progress</h4>
                 </div>
             </div>
+
+            <!-- List all done tasks -->
             <div class="col-lg bg-dark mx-1" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <div class="d-flex justify-content-center bg-success m-2">
                     <h4>Done</h4>
@@ -80,11 +93,14 @@
             </div>
         </div>
     </div>
+
+    <!-- footer -->
     <div class="fixed-bottom bg-dark">
         <div class="d-flex justify-content-center text-white p-3">
             @ Banda Nikhil Reddy
         </div>
     </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -93,8 +109,6 @@
         crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
-
-
 <script src="js/dom.js"></script>
 
 </html>
