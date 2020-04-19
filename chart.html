@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<title>JS Assignment!</title>
+	<script>
+		window.onload = function () {
+			var tasksList = GetList();
+			var doTasks = [];
+			var doingTasks = [];
+			var doneTasks = [];
+			if (tasksList.length > 0) {
+				tasksList.forEach(element => {
+					if (element.type == "do") {
+						doTasks.push(element)
+					}
+					else if (element.type == "done") {
+						doneTasks.push(element)
+					}
+					else if (element.type == "doing") {
+						doingTasks.push(element)
+					}
+				})
+			}
+			var chart = new CanvasJS.Chart("chartContainer", {
+				theme: "light2",
+				animationEnabled: true,
+				title: {
+					text: "Your tasks"
+				},
+				// subtitles: [{
+				// 	text: "United Kingdom, 2016",
+				// 	fontSize: 16
+				// }],
+				data: [{
+					type: "pie",
+					indexLabelFontSize: 24,
+					radius: 500,
+					indexLabel: "{label} - {y}",
+					yValueFormatString: "###0.0\"%\"",
+					click: explodePie,
+					dataPoints: [
+						{ y: GetTaskPercentage("do"), label: "to-do" },
+						{ y: GetTaskPercentage("doing"), label: "in-progress" },
+						{ y: GetTaskPercentage("done"), label: "done" },
+					]
+				}]
+			});
+			chart.render();
+
+			function explodePie(e) {
+				for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
+					if (i !== e.dataPointIndex)
+						e.dataSeries.dataPoints[i].exploded = false;
+				}
+			}
+
+			function GetList() {
+				// Get the count of tasks stored in browser local storage
+				return JSON.parse(localStorage.getItem("tasks"));
+			}
+			function GetTaskPercentage(type) {
+				if (type == "do") {
+					return doTasks.length > 0 ?
+						100 * doTasks.length / (doTasks.length + doneTasks.length + doingTasks.length) :
+						0;
+				}
+				else if (type == "done") {
+					return doneTasks.length > 0 ?
+						100 * doneTasks.length / (doTasks.length + doneTasks.length + doingTasks.length) :
+						0;
+				}
+				else if (type == "doing") {
+					return doingTasks.length > 0 ?
+						100 * doingTasks.length / (doTasks.length + doneTasks.length + doingTasks.length) :
+						0;
+				}
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
+		<a class="navbar-brand text-white" href="home.html">TasksGrid</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+		 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link text-white" href="home.html">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white" href="#">Charts</a>
+				</li>
+			</ul>
+			<button class="btn btn-outline-danger my-2 my-sm-0" onclick="location.href='index.html'">Logout</button>
+		</div>
+	</nav>
+	<div class="container my-5 py-5">
+		<div id="chartContainer" style="height: 370px; width: 100%;">
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		</div>
+	</div>
+
+	<div class="fixed-bottom bg-dark">
+		<div class="d-flex justify-content-center text-white p-3">
+			@ Banda Nikhil Reddy
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	 crossorigin="anonymous"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>

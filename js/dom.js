@@ -89,7 +89,6 @@ function AddTask() {
             }
             // Store task object in an task array
             taskList.push(task);
-            console.log(task.id)
             // Create required DOM nodes for the new task (using task object as parameter)
             CreateTask(task);
             StoreList(taskCount)
